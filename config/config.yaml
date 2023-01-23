@@ -1,7 +1,23 @@
----
+resources: "config/resources.yaml"
+samples: "samples.tsv"
+units: "units.tsv"
 
- resources: "resources.yaml"
- samples: "samples.tsv"
- units: "units.tsv"
+default_container: "docker://hydragenetics/common:0.1.9"
 
- default_container: "docker://hydragenetics/common:0.1.1"
+trimmer_software: "fastp_pe"
+
+fastp_pe:
+  container: "docker://hydragenetics/fastp:0.20.1"
+
+sentieon:
+  container: "/apps/bio/singularities/wgs_somatic/sentieon_peta_201911_hg38_new220503.simg" # What if hg19?
+  reference: "/databases/GCA_000001405.15_GRCh38_no_alt_analysis_set.fna"
+  sentieon: "/sentieon-genomics-201911/bin/sentieon"
+  mills: "/databases/Mills_and_1000G_gold_standard.indels.hg38.vcf.gz"
+  dbsnp: "/databases/Homo_sapiens_assembly38.dbsnp138.vcf.gz"
+  tnscope_settings: "--min_init_normal_lod 0.5 --min_normal_lod 3.0 --min_init_tumor_lod 1.0 --min_tumor_lod 3 --trim_soft_clip"
+
+
+
+modules:
+  sentieon: "add_tools"

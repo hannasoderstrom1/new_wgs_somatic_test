@@ -1,0 +1,18 @@
+jobs: 100
+#drmaa: "  -V -q {resources.queue} -pe mpi {resources.threads} -l excl=1"
+drmaa: "  -V -q {resources.queue} -pe mpi {resources.threads} -l excl=1 -o logs/{rule}.stdout -e logs/{rule}.stderr"
+snakefile: "workflow/Snakefile"
+printshellcmds: True
+use-singularity: True
+configfile: "config/config.yaml"
+singularity-prefix: "/apps/bio/dependencies/hydra_genetics/singularities"
+singularity-args: "-e --bind /medstore --bind /seqstore --bind /apps --bind /home"
+rerun-incomplete: True
+restart-times: 1
+latency-wait: 120
+jobname: "hydra.{name}.{jobid}"
+#notemp: True # save temp files to restart easier when testing. remove later
+#resources: "mem_mb=1024"
+#drmaa: " -V -q {resources.queue} -pe mpi {resources.threads} -l excl=1" --latency-wait 60 --cleanenv --use-singularity --singularity-prefix=/apps/bio/dependencies/hydra_genetics/singularities --singularity-args "-e --bind /medstore --bind /seqstore --bind /apps "
+#drmaa: " -A wp1 -N 1-1 -t {resources.time} -n {resources.threads} --mem={resources.mem_mb} --mem-per-cpu={resources.mem_per_cpu} --mem-per-cpu={resources.mem_per_cpu} --partition={resources.partition}"
+default-resources: [queue="production.q", threads=1]

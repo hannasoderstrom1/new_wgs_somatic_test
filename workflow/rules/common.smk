@@ -38,13 +38,32 @@ validate(units, schema="../schemas/units.schema.yaml")
 
 
 wildcard_constraints:
-    sample="|".join(samples.index),
+    barcode="[A-Z+]+",
+    chr="[^_]+",
+    flowcell="[A-Z0-9-]+",
+    lane="L[0-9]+",
+    sample="|".join(get_samples(samples)),
     type="N|T|R",
 
+if config.get("trimmer_software", "None") == "fastp_pe":
+    alignment_input = lambda wilcards: [
+        "prealignment/fastp_pe/{sample}_{flowcell}_{lane}_{barcode}_{type}_fastq1.fastq.gz",
+        "prealignment/fastp_pe/{sample}_{flowcell}_{lane}_{barcode}_{type}_fastq2.fastq.gz",
+    ]
+elif config.get("trimmer_software", "None") == "None":
+    alignment_input = lambda wildcards: [
+        get_fastq_file(units, wildcards, "fastq1"),
+        get_fastq_file(units, wildcards, "fastq2"),
+    ]
 
-def compile_output_list(wildcards):
-    return [
-        "new_wgs_somatic_test/dummy/%s_%s.dummy.txt" % (sample, t)
+
+def compile_output_list(wildcards: snakemake.io.Wildcards):
+    #print(wildcards.type)
+    #print(samples)
+    #print(units)
+    output_files = [
+        "sentieon/qualcal/{}_{}_RECAL_DATA.TABLE".format(sample, t)
         for sample in get_samples(samples)
         for t in get_unit_types(units, sample)
     ]
+    return output_files
