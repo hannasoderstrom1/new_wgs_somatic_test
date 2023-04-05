@@ -62,8 +62,30 @@ def compile_output_list(wildcards: snakemake.io.Wildcards):
     #print(samples)
     #print(units)
     output_files = [
+        #"sentieon/dedup/{}_{}_DEDUP.bam".format(sample, t)
         "sentieon/qualcal/{}_{}_RECAL_DATA.TABLE".format(sample, t)
         for sample in get_samples(samples)
         for t in get_unit_types(units, sample)
     ]
+    output_files.append(
+        [
+            #"sentieon/tnscope/{}.txt".format(sample)
+            "sentieon/tnscope/{}_TNscope_tn.vcf".format(sample)
+            for sample in get_samples(samples)
+        ]
+    )
+    output_files.append(
+        [
+            "sentieon/dnascope/{}_{}_DNAscope_modelfiltered.vcf".format(sample, t)
+            for sample in get_samples(samples)
+            for t in get_unit_types(units, sample)
+        ]
+    )
+
+   # output_files.append(
+   #     [
+   #         "sentieon/tnscope/%s_TNscope_tn.vcf" % (sample)
+   #         for sample in get_samples(samples)
+   #     ]
+   # )
     return output_files

@@ -5,7 +5,7 @@ units: "units.tsv"
 default_container: "docker://hydragenetics/common:0.1.9"
 
 trimmer_software: "fastp_pe"
-
+#trimmer_software: None
 fastp_pe:
   container: "docker://hydragenetics/fastp:0.20.1"
 
@@ -16,7 +16,9 @@ sentieon:
   mills: "/databases/Mills_and_1000G_gold_standard.indels.hg38.vcf.gz"
   dbsnp: "/databases/Homo_sapiens_assembly38.dbsnp138.vcf.gz"
   tnscope_settings: "--min_init_normal_lod 0.5 --min_normal_lod 3.0 --min_init_tumor_lod 1.0 --min_tumor_lod 3 --trim_soft_clip"
-
+  dnascope_settings: "--pcr_indel_model NONE"
+  dbsnp: "/databases/Homo_sapiens_assembly38.dbsnp138.vcf.gz"
+  dnascope_model: "/databases/SentieonDNAscopeModelBeta0.5.model"
 
 
 modules:
