@@ -15,4 +15,4 @@ jobname: "hydra.{name}.{jobid}"
 #resources: "mem_mb=1024"
 #drmaa: " -V -q {resources.queue} -pe mpi {resources.threads} -l excl=1" --latency-wait 60 --cleanenv --use-singularity --singularity-prefix=/apps/bio/dependencies/hydra_genetics/singularities --singularity-args "-e --bind /medstore --bind /seqstore --bind /apps "
 #drmaa: " -A wp1 -N 1-1 -t {resources.time} -n {resources.threads} --mem={resources.mem_mb} --mem-per-cpu={resources.mem_per_cpu} --mem-per-cpu={resources.mem_per_cpu} --partition={resources.partition}"
-default-resources: [queue="production.q", threads=1]
+default-resources: [queue="development.q", threads=1]

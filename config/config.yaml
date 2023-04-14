@@ -19,7 +19,7 @@ sentieon:
   dnascope_settings: "--pcr_indel_model NONE"
   dbsnp: "/databases/Homo_sapiens_assembly38.dbsnp138.vcf.gz"
   dnascope_model: "/databases/SentieonDNAscopeModelBeta0.5.model"
-
+  tnscope_model: "/databases/Sentieon_GiAB_201711.model"
 
 modules:
   sentieon: "add_tools"
