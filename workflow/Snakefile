@@ -33,7 +33,7 @@ module prealignment:
         github(
             "hydra-genetics/prealignment",
             path="workflow/Snakefile",
-            tag="v0.2.0",
+            tag=config["modules"]["prealignment"],
         )
     config:
         config
